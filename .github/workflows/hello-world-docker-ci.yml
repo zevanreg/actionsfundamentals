@@ -13,5 +13,5 @@ jobs:
       - uses: ./hello-world-docker-action
         id: hello
         with:
-          INPUT_WHO_TO_GREET: ${{ github.actor }}
+          who-to-greet: ${{ github.actor }}
       - run: echo "Action ran on ${{ steps.hello.outputs.time }} "
