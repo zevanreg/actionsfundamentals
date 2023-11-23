@@ -1,6 +1,6 @@
 name: Hello, World!
 description: Greet someone and record the time
-author: GitHub Actions
+author: me
 
 # Define your inputs here.
 inputs:
