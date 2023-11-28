@@ -11,4 +11,4 @@ jobs:
     needs: call-workflow
     runs-on: ubuntu-latest
     steps:
-      - run: ${{ needs.call-workflow.outputs.current-time }}
+      - run: echo ${{ needs.call-workflow.outputs.current-time }}
