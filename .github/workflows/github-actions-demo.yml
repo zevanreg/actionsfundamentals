@@ -43,7 +43,7 @@ jobs:
           sleep 15
 
   Production:
-    if: inputs.environment == "Production"
+    if: inputs.environment == 'Production'
     runs-on: ubuntu-latest
     environment:
       name: Production
