@@ -8,9 +8,13 @@ on:
   schedule:
     - cron: '15 6 * * 0'
   workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
     
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
@@ -18,3 +22,48 @@ jobs:
       - run: echo "branch name is ${{ github.ref }}"
       - run: tree 
   
+  Test:
+    if: github.event == "workflow_dispatch"
+    runs-on: ubuntu-latest
+    environment: Test
+    needs: Build
+    
+    steps:
+      - run: echo "Testing..."
+  
+  Load-Test:
+    if: github.event == "workflow_dispatch"
+    runs-on: ubuntu-latest
+    environment: Load-Test
+    needs: Build
+    
+    steps:
+      - run: |
+          echo "Testing..."
+          sleep 15
+
+  Production:
+    if: inputs.environment == "Production"
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://writeabout.net
+    needs: [Test, Load-Test]
+    
+    steps:
+      - run: |
+          echo "Step 1 deploying..."
+          sleep 10
+      - run: |
+          echo "Step 2 deploying..."
+          sleep 10
+      - run: |
+          echo "Step 3 deploying..."
+          sleep 10
+      - run: |
+          echo "Step 4 deploying..."
+          sleep 10
+      - run: |
+          echo "Step 5 deploying..."
+          sleep 10
+
